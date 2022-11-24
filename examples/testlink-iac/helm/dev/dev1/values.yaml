@@ -1,0 +1,29 @@
+micro:
+
+  app:
+    image:
+      repository: eu.gcr.io/gcp_project_id/testlink-app
+      tag: v1.0.0
+    service:
+      type: NodePort
+      targetPort: 8080
+    readinessEnabled: true
+    readiness:
+      path: /login.php
+      port: 8080
+    environment:
+      MYSQL_CLIENT_FLAVOR: "mysql"
+      TESTLINK_DATABASE_HOST: "database"
+      TESTLINK_DATABASE_PORT: "3306"
+      TESTLINK_DATABASE_NAME: "testlink"
+      TESTLINK_DATABASE_USER: "testlink"
+      TESTLINK_DATABASE_PASSWORD: "testlink"
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: testlink-app
+    - path: /*
+      service: testlink-app
+

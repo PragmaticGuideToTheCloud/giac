@@ -1,0 +1,46 @@
+micro:
+
+  fpm:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-php-cities-fpm
+      tag: v1.0.0
+    service:
+      type: ClusterIP
+      nodePort: 32767
+      port: 9000
+      targetPort: 9000
+    environment:
+      DATABASE_URL: "postgresql://apiuser:SecretPassword123!@geo-php-cities-database:5432/apidb?serverVersion=13&charset=utf8"
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-php-cities-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+
+  nginx:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-php-cities-nginx
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32765
+    readinessEnabled: true
+    readiness:
+      path: /api/alive
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: geo-php-cities-frontend
+    - path: /*
+      service: geo-php-cities-frontend
+
+    - path: /api/
+      service: geo-php-cities-nginx
+    - path: /api/*
+      service: geo-php-cities-nginx
+

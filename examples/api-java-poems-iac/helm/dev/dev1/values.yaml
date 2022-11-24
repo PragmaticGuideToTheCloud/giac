@@ -1,0 +1,34 @@
+micro:
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-java-poems-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32767
+
+  backend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-java-poems-backend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+    readinessEnabled: true
+    readiness:
+      path: /api/alive
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: api-java-poems-frontend
+    - path: /*
+      service: api-java-poems-frontend
+
+    - path: /api/
+      service: api-java-poems-backend
+    - path: /api/*
+      service: api-java-poems-backend
+

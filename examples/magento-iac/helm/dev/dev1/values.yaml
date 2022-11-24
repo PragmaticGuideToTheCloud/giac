@@ -1,0 +1,30 @@
+micro:
+
+  app:
+    image:
+      repository: eu.gcr.io/gcp_project_id/magento-app
+      tag: v1.0.0
+    service:
+      type: NodePort
+      targetPort: 8080
+    readinessEnabled: true
+    readiness:
+      path: /login
+      port: 8080
+    environment:
+      MAGENTO_HOST: "localhost"
+      MAGENTO_DATABASE_HOST: "mariadb"
+      MAGENTO_DATABASE_NAME: "bitnami_magento"
+      MAGENTO_DATABASE_USER: "bn_magento"
+      MAGENTO_DATABASE_PASSWORD: "magentoOOO"
+      ELASTICSEARCH_HOST: "elasticsearch"
+      ELASTICSEARCH_PORT_NUMBER: "9200"
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: magento-app
+    - path: /*
+      service: magento-app
+

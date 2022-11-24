@@ -1,0 +1,20 @@
+version: "1"
+
+params:
+  name: hello-cloud
+  description: Hello, Cloud!
+  app_repo: git@github.com:PragmaticGuideToTheCloud/hello-cloud.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    web:
+      url: /
+      dockerComposePorts:
+        - 80:80
+files:
+  files/docker/dockerfiles/html.Dockerfile: docker/build/web.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart

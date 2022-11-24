@@ -1,0 +1,55 @@
+version: "1"
+
+params:
+  name: redmine
+  description: Redmine
+  version: 4.2.0
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    app:
+      url: /
+      readinessEnabled: true
+      readinessPath: /
+      readinessPort: 3000
+      targetPort: 3000
+      dockerComposePorts:
+        - 8080:3000
+      dockerComposeDependsOn:
+        - database
+      environment:
+        REDMINE_DB_MYSQL: <<< db.database_host >>>
+        REDMINE_DB_DATABASE: <<< db.database_name >>>
+        REDMINE_DB_USERNAME: <<< db.database_user >>>
+        REDMINE_DB_PASSWORD: <<< db.database_password >>>
+        REDMINE_SECRET_KEY_BASE: supersecretkey
+    database:
+      image: mysql:5.7
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+        MYSQL_DATABASE: <<< db.database_name >>>
+        MYSQL_USER: <<< db.database_user >>>
+        MYSQL_PASSWORD: <<< db.database_password >>>
+
+  terraform:
+    - vpc
+    - gke
+    - sql
+    - gsa
+
+  db:
+    database_version: MYSQL_5_7
+    database_host: database
+    database_name: redmine
+    database_user: redmine
+    database_password: redmine
+
+files:
+  files/docker/dockerfiles/redmine/redmine.Dockerfile: docker/build/app.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+  files/helm/values.yaml: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart
+

@@ -1,0 +1,54 @@
+micro:
+<% for service in helmServices %>
+
+<%- if not service.excludeFromHelm %>
+  <<< service.name >>>:
+    image:
+      repository: <<< container_registry >>>/<<< provider.gcp.project_id >>>/<<< name >>>-<<< service.name >>>
+      tag: <<< version | default ("v1.0.0") >>>
+    service:
+      type: <<< service.type >>>
+      <%- if loop.length > 1 %>
+      nodePort: <<< service.nodePort >>>
+      <%- endif -%>
+      <%- if service.port %>
+      port: <<< service.port >>>
+      <%- endif -%>
+      <%- if service.targetPort %>
+      targetPort: <<< service.targetPort >>>
+      <%- endif -%>
+      <%- if service.readinessEnabled %>
+    readinessEnabled: <<< service.readinessEnabled >>>
+      <%- endif -%>
+      <%- if service.readinessPath %>
+    readiness:
+      path: <<< service.readinessPath >>>
+      <%- endif -%>
+      <%- if service.readinessPort %>
+      port: <<< service.readinessPort >>>
+      <%- endif %>
+      <%- if service.environment %>
+    environment:
+      <%- for envKey, envValue in service.environment %>
+      <<< envKey >>>: "<<< envValue >>>"
+      <%- endfor -%>
+      <%- endif -%>
+<% endif %>
+<% endfor %>
+ingress:
+  enabled: true
+  paths:
+<%- for service in helmServices %>
+<%- if service.name !== "traefik" and service.url %>
+    - path: <<< service.url >>>
+      service: <<< name >>>-<<< service.name >>>
+    - path: <<< service.url >>>*
+      service: <<< name >>>-<<< service.name >>>
+<% endif -%>
+<% endfor %>
+<%- if externalName.enabled %>
+externalName:
+  enabled: true
+  name: <<< externalName.name >>>
+  ip: <<< externalName.ip >>>
+<% endif %>

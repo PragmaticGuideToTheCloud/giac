@@ -1,0 +1,33 @@
+version: "3"
+services:
+
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.3
+    restart: always
+    environment:
+      MARIADB_USER: "bn_magento"
+      MARIADB_PASSWORD: "magentoOOO"
+      MARIADB_DATABASE: "bitnami_magento"
+      MARIADB_ROOT_PASSWORD: "zaq12wsx"
+
+  elasticsearch:
+    image: docker.io/bitnami/elasticsearch:6
+    restart: always
+
+  app:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-app:${PROJECT_VERSION}"
+    restart: always
+    ports:
+      - 80:8080
+      - 443:8443
+    depends_on:
+      - mariadb
+      - elasticsearch
+    environment:
+      MAGENTO_HOST: "localhost"
+      MAGENTO_DATABASE_HOST: "mariadb"
+      MAGENTO_DATABASE_NAME: "bitnami_magento"
+      MAGENTO_DATABASE_USER: "bn_magento"
+      MAGENTO_DATABASE_PASSWORD: "magentoOOO"
+      ELASTICSEARCH_HOST: "elasticsearch"
+      ELASTICSEARCH_PORT_NUMBER: "9200"

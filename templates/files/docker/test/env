@@ -1,0 +1,4 @@
+GCP_PROJECT_ID=<<< provider.gcp.project_id >>>
+PROJECT_NAME=<<< name >>>
+PROJECT_VERSION=<<< version | default ("v1.0.0") >>>
+CONTAINER_REGISTRY=<<< container_registry >>>

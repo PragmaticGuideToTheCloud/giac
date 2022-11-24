@@ -1,0 +1,25 @@
+micro:
+
+  php:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/memorize-it-php
+      tag: v1.0.0
+    service:
+      type: NodePort
+    readinessEnabled: true
+    readiness:
+      path: /alive
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: memorize-it-php
+    - path: /*
+      service: memorize-it-php
+
+externalName:
+  enabled: true
+  name: database
+  ip: 10.91.144.3
+

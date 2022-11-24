@@ -1,0 +1,17 @@
+micro:
+
+  web:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/today-java-web
+      tag: v1.0.0
+    service:
+      type: NodePort
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: today-java-web
+    - path: /*
+      service: today-java-web
+

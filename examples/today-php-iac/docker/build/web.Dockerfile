@@ -1,0 +1,4 @@
+FROM tutum/apache-php
+ARG PROJECT_NAME
+ARG SRC_CODE_DIR
+ADD .cache/$PROJECT_NAME$SRC_CODE_DIR /app

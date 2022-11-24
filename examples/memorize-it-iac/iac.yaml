@@ -1,0 +1,57 @@
+version: "1"
+
+params:
+  name: memorize-it
+  description: Memorizer
+  app_repo: git@github.com:gajdaw-teaching/memorize-it.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    php:
+      url: /
+      readinessEnabled: true
+      readinessPath: /alive
+      dockerComposePorts:
+        - 80:80
+      dockerComposeDependsOn:
+        - database
+    database:
+      image: mysql:5.7
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+        MYSQL_DATABASE: <<< db.database_name >>>
+        MYSQL_USER: <<< db.database_user >>>
+        MYSQL_PASSWORD: <<< db.database_password >>>
+  externalName:
+    enabled: true
+    name: database
+    ip: 10.91.144.3
+
+  terraform:
+    - vpc
+    - gke
+    - sql
+    - gsa
+
+  db:
+    database_version: MYSQL_5_7
+    database_name: memorize_it_net
+    database_user: memory_admin
+    database_password: memoryPWD345
+
+  helm:
+    job:
+      service: php
+      command: "/bin/sh"
+      args:
+        - "-c"
+        - "php /app/app/console doctrine:migrations:migrate -n"
+
+files:
+  files/docker/dockerfiles/memorizer/php.Dockerfile: docker/build/php.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+  files/helm/values.yaml: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+
+dirs:
+  helm-charts/helm-chart-with-job: helm-chart

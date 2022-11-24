@@ -1,0 +1,78 @@
+baseDir: examples/jenkins-iac/
+cfg:
+  templatesDir: /Users/gajdaw/pgttc/giac/src/../templates/
+  nunjucks:
+    autoescape: false
+    tags:
+      variableStart: <<<
+      variableEnd: '>>>'
+      blockStart: <%
+      blockEnd: '%>'
+    dev: false
+    throwOnUndefined: false
+    trimBlocks: false
+    lstripBlocks: false
+  filenameConvertions:
+    gitignore: .gitignore
+    dockerignore: .dockerignore
+    gitkeep: .gitkeep
+iterations:
+  - __VPC_NAME__: dev
+    __ENV_NAME__: dev1
+files:
+  - src: files/auth/Makefile
+    dest: auth/Makefile
+  - src: files/helm/deploy.sh
+    dest: helm/__VPC_NAME__/__ENV_NAME__/deploy.sh
+  - src: files/helm/values.yaml
+    dest: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+  - src: files/README.md
+    dest: README.md
+  - src: terraform/terragrunt.hcl
+    dest: terraform/terragrunt.hcl
+  - src: terraform/gitignore
+    dest: terraform/gitignore
+  - src: files/helm/deploy-jenkins.sh
+    dest: helm/__VPC_NAME__/__ENV_NAME__/deploy.sh
+  - src: files/helm/values-jenkins.yaml
+    dest: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+dirs:
+  - src: ansible
+    dest: ansible
+  - src: tests
+    dest: tests
+  - src: vpn
+    dest: vpn
+  - src: terraform/vpc
+    dest: terraform/vpc
+  - src: terraform/gke
+    dest: terraform/gke
+  - src: terraform/gsa
+    dest: terraform/gsa
+params:
+  name: jenkins
+  description: Jenkins
+  provider:
+    gcp:
+      project_id: gcp_project_id
+      envs:
+        - dev/dev1
+      vpc:
+        boilerplate: >-
+          git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/vpc
+      gke:
+        boilerplate: >-
+          git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/gke-public-plane
+      gsa:
+        boilerplate: >-
+          git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/gsa
+      autoZone: false
+  terraform:
+    - vpc
+    - gke
+    - gsa
+  container_registry: eu.gcr.io
+  ansibleBoilerplateUrl: 'git@github.com:PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git'
+  containers: []
+  dockerServices: []
+  helmServices: []

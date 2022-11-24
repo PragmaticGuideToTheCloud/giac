@@ -1,0 +1,6 @@
+apiVersion: v1
+name: api-java-poems
+description: "API / Java / Poems"
+type: application
+version: 0.0.1
+appVersion: v1.0.0

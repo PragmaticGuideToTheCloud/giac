@@ -1,0 +1,25 @@
+version: "1"
+
+params:
+  name: hello-ssh
+  description: Hello, SSH!
+  app_repo: git@github.com:PragmaticGuideToTheCloud/hello-cloud.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+      vpc:
+        bastion_public_key_filename: ~/.ssh/iac_example_id_rsa.pub
+        bastion_private_key_filename: ~/.ssh/iac_example_id_rsa
+  bastionHost: 1.2.3.4
+  services:
+    web:
+      url: /
+      dockerComposePorts:
+        - 80:80
+files:
+  files/docker/dockerfiles/html.Dockerfile: docker/build/web.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart
+  ssh-keys: ssh-keys

@@ -1,0 +1,2 @@
+FROM redmine:4.2.0
+EXPOSE 8080

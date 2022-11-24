@@ -1,0 +1,30 @@
+version: "1"
+
+params:
+  name: api-python-writers
+  description: API / Python / Writers
+  app_repo: git@github.com:PragmaticGuideToTheCloud/api-python-writers.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    backend:
+      url: /api/
+      readinessEnabled: true
+      readinessPath: /api/alive
+      srcCodePath: /backend
+      withTraefik: true
+    frontend:
+      url: /
+      srcCodePath: /frontend
+      withTraefik: true
+
+files:
+  files/docker/dockerfiles/python/python.Dockerfile: docker/build/backend.Dockerfile
+  files/docker/dockerfiles/node/node-frontend.Dockerfile: docker/build/frontend.Dockerfile
+  files/docker/dockerfiles/traefik/traefik.Dockerfile: docker/build/traefik.Dockerfile
+  files/docker/dockerfiles/traefik/traefik.toml: docker/build/traefik.toml
+  files/docker/test/docker-compose-traefik.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart

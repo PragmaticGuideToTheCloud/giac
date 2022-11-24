@@ -1,0 +1,34 @@
+micro:
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-python-writers-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32767
+
+  backend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-python-writers-backend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+    readinessEnabled: true
+    readiness:
+      path: /api/alive
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: api-python-writers-frontend
+    - path: /*
+      service: api-python-writers-frontend
+
+    - path: /api/
+      service: api-python-writers-backend
+    - path: /api/*
+      service: api-python-writers-backend
+

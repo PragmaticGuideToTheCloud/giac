@@ -1,0 +1,42 @@
+{{- range $micro, $config := .Values.micro }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "app.fullname" $ }}-{{ $micro }}
+  labels:
+    app: &app {{ template "app.name" $ }}-{{ $micro }}
+    release: &release {{ $.Release.Name }}
+    chart: {{ template "app.chart" $ }}
+    heritage: {{ $.Release.Service }}
+spec:
+  replicas: {{ $config.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: *app
+      release: *release
+  template:
+    metadata:
+      labels:
+        app: *app
+        release: *release
+    spec:
+      containers:
+        - name: {{ $.Chart.Name }}-{{ $micro }}
+          image: {{ $config.image.repository }}:{{ $config.image.tag }}
+          imagePullPolicy: {{ $config.image.pullPolicy | default "Always" }}
+          ports:
+            - containerPort: 80
+          {{ if $config.readinessEnabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ $config.readiness.path | default "/" }}
+              port: {{ $config.readiness.port | default "80" }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          {{ end }}
+          envFrom:
+            - configMapRef:
+                name: {{ template "app.fullname" $ }}-{{ $micro }}
+      restartPolicy: Always
+{{- end }}

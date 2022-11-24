@@ -1,0 +1,42 @@
+GCP_PROJECT_ID      = <<< provider.gcp.project_id >>>
+PROJECT_NAME        = <<< name >>>
+PROJECT_VERSION     = <<< version >>>
+CONTAINER_REGISTRY  = <<< container_registry >>>
+
+SELF := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
+export
+
+.PHONY: all clean build push edit_app_version<% for container in containers %> build-<<< container.name >>><% if not loop.last %><% endif %><% endfor %>
+
+all: build push edit_app_version
+
+build: \
+<%- for container in containers %>
+	build-<<< container.name >>> \
+<%- endfor %>
+	edit_app_version
+
+push: \
+<%- for container in containers %>
+	push-<<< container.name >>><% if not loop.last %> \<% endif %>
+<%- endfor %>
+
+clean:
+	-rm -rf $(SELF)/.cache/
+<% for container in containers %>
+build-<<< container.name >>>:
+	docker build \
+	  -t $(CONTAINER_REGISTRY)/$(GCP_PROJECT_ID)/$(PROJECT_NAME)-<<< container.name >>>:$(PROJECT_VERSION) \
+	  -f <<< container.name >>>.Dockerfile \
+	  --build-arg PROJECT_NAME=$(PROJECT_NAME) \
+	  .
+
+push-<<< container.name >>>: build
+	docker push $(CONTAINER_REGISTRY)/$(GCP_PROJECT_ID)/$(PROJECT_NAME)-<<< container.name >>>:$(PROJECT_VERSION)
+<% endfor %>
+
+edit_app_version:
+	sed -i ""  -E s/PROJECT_VERSION\.\*/PROJECT_VERSION=$(PROJECT_VERSION)/g ./../test/.env \
+	&& sed -i ""  -E s/appVersion\.\*/appVersion:\ $(PROJECT_VERSION)/g ./../../helm-chart/Chart.yaml \
+	&& sed -i ""  -E s/tag:\ \.\*/tag:\ $(PROJECT_VERSION)/g ./../../helm/<<< __VPC_NAME__ >>>/<<< __ENV_NAME__ >>>/values.yaml

@@ -1,0 +1,44 @@
+micro:
+
+  fpm:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-php-quotations-fpm
+      tag: v1.0.0
+    service:
+      type: ClusterIP
+      nodePort: 32767
+      port: 9000
+      targetPort: 9000
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-php-quotations-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+
+  nginx:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-php-quotations-nginx
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32765
+    readinessEnabled: true
+    readiness:
+      path: /api/alive
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: api-php-quotations-frontend
+    - path: /*
+      service: api-php-quotations-frontend
+
+    - path: /api/
+      service: api-php-quotations-nginx
+    - path: /api/*
+      service: api-php-quotations-nginx
+

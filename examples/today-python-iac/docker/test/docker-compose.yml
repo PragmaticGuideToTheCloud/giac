@@ -1,0 +1,8 @@
+version: "3"
+services:
+
+  web:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-web:${PROJECT_VERSION}"
+    restart: always
+    ports:
+      - 80:80

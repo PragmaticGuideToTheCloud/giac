@@ -1,0 +1,56 @@
+version: "3"
+services:
+
+<%- for service in dockerServices %>
+<%- if service.name === "traefik" %>
+
+  traefik:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-traefik:${PROJECT_VERSION}"
+    restart: always
+    ports:
+      - 80:3000/tcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.enable=false
+
+<%- else %>
+
+  <<< service.dockerComposeServiceName >>>:
+    <% if service.image -%>
+    image: <<< service.image >>>
+    <% else -%>
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-<<< service.name >>>:${PROJECT_VERSION}"
+    <% endif -%>
+    restart: always
+    <%- if service.dockerComposePorts %>
+    ports:
+    <%- for dockerComposePortsEntry in service.dockerComposePorts %>
+      - <<< dockerComposePortsEntry >>>
+    <%- endfor %>
+    <%- endif %>
+    <%- if service.command %>
+    command: <<< service.command >>>
+    <%- endif %>
+    <%- if service.dockerComposeDependsOn %>
+    depends_on:
+    <%- for dockerComposeDependsOnEntry in service.dockerComposeDependsOn %>
+      - <<< dockerComposeDependsOnEntry >>>
+    <%- endfor %>
+    <%- endif %>
+    <%- if service.environment %>
+    environment:
+      <%- for envKey, envValue in service.environment %>
+      <<< envKey >>>: "<<< envValue >>>"
+      <%- endfor -%>
+    <%- endif %>
+    labels:
+    <%- if service.withTraefik %>
+      - traefik.enable=true
+      - traefik.frontend.rule=PathPrefix:<<< service.url >>>
+      - traefik.port=80
+    <%- else %>
+      - traefik.enable=false
+    <%- endif -%>
+<%- endif -%>
+<% endfor %>

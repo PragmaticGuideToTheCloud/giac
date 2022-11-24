@@ -1,0 +1,45 @@
+version: "3"
+services:
+
+  traefik:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-traefik:${PROJECT_VERSION}"
+    restart: always
+    ports:
+      - 80:3000/tcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.enable=false
+
+  database:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: "apidb"
+      POSTGRES_USER: "apiuser"
+      POSTGRES_PASSWORD: "SecretPassword123!"
+    labels:
+      - traefik.enable=false
+
+  frontend:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-frontend:${PROJECT_VERSION}"
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=PathPrefix:/
+      - traefik.port=80
+
+  backend:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-backend:${PROJECT_VERSION}"
+    restart: always
+    depends_on:
+      - database
+    environment:
+      DB_HOST: "database"
+      DB_NAME: "apidb"
+      DB_USER: "apiuser"
+      DB_PASSWORD: "SecretPassword123!"
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=PathPrefix:/api/
+      - traefik.port=80

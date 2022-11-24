@@ -1,0 +1,12 @@
+version: "1"
+
+params:
+  name: airflow
+  description: Airflow
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+
+files:
+  files/helm/values-airflow.yaml: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+  files/helm/deploy-airflow.sh: helm/__VPC_NAME__/__ENV_NAME__/deploy.sh

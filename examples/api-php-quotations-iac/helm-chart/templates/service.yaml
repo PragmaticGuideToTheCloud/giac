@@ -1,0 +1,25 @@
+{{- range $micro, $config := .Values.micro }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "app.fullname" $ }}-{{ $micro }}
+  labels:
+    app: &app {{ template "app.name" $ }}-{{ $micro }}
+    release: &release {{ $.Release.Name }}
+    chart: {{ template "app.chart" $ }}
+    heritage: {{ $.Release.Service }}
+spec:
+  type: {{ $config.service.type }}
+  ports:
+    - port: {{ $config.service.port | default 80 }}
+      targetPort: {{ $config.service.targetPort | default 80 }}
+      {{ if eq $config.service.type "NodePort" }}
+      nodePort: {{ $config.service.nodePort | default 32767 }}
+      {{ end }}
+      protocol: TCP
+      name: http
+  selector:
+    app: *app
+    release: *release
+{{- end }}

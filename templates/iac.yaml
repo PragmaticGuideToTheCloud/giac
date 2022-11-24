@@ -1,0 +1,67 @@
+version: "1"
+params:
+  name: hello-cloud
+  description: Hello, Cloud!
+  app_repo: git@github.com:PragmaticGuideToTheCloud/hello-cloud.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+#
+#     autoZone examples:
+#
+#         autoZone: europe-west1-b
+#         autoZone: us-east1-d
+#         autoZone: northamerica-northeast1-b
+#         autoZone: asia-southeast2-b
+#
+#
+#     manual region/zone/subnetwork examples:
+#
+#          region: europe-west1
+#          zone: europe-west1-b
+#          master_ipv4_cidr_block: 10.132.16.0/28
+#          cidr_block: 10.132.0.0/20
+#          peer_routes: 10.132.0.0/16
+#
+#
+#          region: us-east1
+#          zone: us-east1-b
+#          master_ipv4_cidr_block: 10.142.16.0/28
+#          cidr_block: 10.142.0.0/20
+#          peer_routes: 10.142.0.0/16
+#
+#
+#          region: us-west4
+#          zone: us-west4-a
+#          master_ipv4_cidr_block: 10.182.16.0/28
+#          cidr_block: 10.182.0.0/20
+#          peer_routes: 10.182.0.0/16
+#
+#
+#          region: us-central1
+#          zone: us-central1-a
+#          master_ipv4_cidr_block: 10.128.16.0/28
+#          cidr_block: 10.128.0.0/20
+#          peer_routes: 10.128.0.0/16
+#
+#
+#          region: asia-east1
+#          zone: asia-east1-a
+#          master_ipv4_cidr_block: 10.140.16.0/28
+#          cidr_block: 10.140.0.0/20
+#          peer_routes: 10.140.0.0/16
+#
+#
+#      bucket_suffix: tfstate
+#      envs:
+#        - dev/dev1
+#      vpc:
+#        boilerplate: git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/vpc
+#        bastion_public_key: ~/.ssh/id_rsa.pub
+#      gke:
+#        boilerplate: git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/gke
+#   ansible:
+#     boilerplate: git@github.com:PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git
+#   docker: html
+#   container_registry: eu.gcr.io
+#   helm: default

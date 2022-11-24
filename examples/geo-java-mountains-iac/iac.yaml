@@ -1,0 +1,57 @@
+version: "1"
+
+params:
+  name: geo-java-mountains
+  description: Geography / Java / Mountains
+  app_repo: git@github.com:PragmaticGuideToTheCloud/geo-java-mountains.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    backend:
+      url: /api/
+      readinessEnabled: true
+      readinessPath: /api/alive
+      dockerComposeDependsOn:
+        - database
+      environment:
+        DB_HOST: <<< db.database_host >>>
+        DB_NAME: <<< db.database_name >>>
+        DB_USER: <<< db.database_user >>>
+        DB_PASSWORD: <<< db.database_password >>>
+      srcCodePath: /backend
+      withTraefik: true
+
+    frontend:
+      url: /
+      srcCodePath: /frontend
+      withTraefik: true
+
+    database:
+      image: postgres:13-alpine
+      environment:
+        POSTGRES_DB: <<< db.database_name >>>
+        POSTGRES_USER: <<< db.database_user >>>
+        POSTGRES_PASSWORD: <<< db.database_password >>>
+
+  terraform:
+    - vpc
+    - gke
+    - sql
+    - gsa
+  db:
+    database_host: database
+    database_name: apidb
+    database_user: apiuser
+    database_password: SecretPassword123!
+
+files:
+  files/docker/dockerfiles/java/java-mountains.Dockerfile: docker/build/backend.Dockerfile
+  files/docker/dockerfiles/node/node-frontend.Dockerfile: docker/build/frontend.Dockerfile
+  files/docker/dockerfiles/traefik/traefik.Dockerfile: docker/build/traefik.Dockerfile
+  files/docker/dockerfiles/traefik/traefik.toml: docker/build/traefik.toml
+  files/docker/test/docker-compose-traefik.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart
+

@@ -1,0 +1,14 @@
+{{- if .Values.externalName.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.externalName.name }}
+  labels:
+    app: {{ template "app.name" $ }}-external-name
+    release: {{ $.Release.Name }}
+    chart: {{ template "app.chart" $ }}
+    heritage: {{ $.Release.Service }}
+spec:
+  type: ExternalName
+  externalName: {{ .Values.externalName.ip }}
+{{- end }}

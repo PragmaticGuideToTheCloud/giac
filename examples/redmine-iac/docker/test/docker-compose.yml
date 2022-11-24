@@ -1,0 +1,25 @@
+version: "3"
+services:
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "redmine"
+      MYSQL_USER: "redmine"
+      MYSQL_PASSWORD: "redmine"
+
+  app:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-app:${PROJECT_VERSION}"
+    restart: always
+    ports:
+      - 8080:3000
+    depends_on:
+      - database
+    environment:
+      REDMINE_DB_MYSQL: "database"
+      REDMINE_DB_DATABASE: "redmine"
+      REDMINE_DB_USERNAME: "redmine"
+      REDMINE_DB_PASSWORD: "redmine"
+      REDMINE_SECRET_KEY_BASE: "supersecretkey"

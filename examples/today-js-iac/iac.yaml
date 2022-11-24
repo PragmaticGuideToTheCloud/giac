@@ -1,0 +1,21 @@
+version: "1"
+
+params:
+  name: today-js
+  description: TODAY / JS
+  app_repo: git@github.com:PragmaticGuideToTheCloud/today-js.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    web:
+      url: /
+      dockerComposePorts:
+        - 80:80
+
+files:
+  files/docker/dockerfiles/node/node-backend.Dockerfile: docker/build/web.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart

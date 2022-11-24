@@ -1,0 +1,21 @@
+version: "1"
+
+params:
+  name: today-ruby
+  description: TODAY / Ruby
+  app_repo: git@github.com:PragmaticGuideToTheCloud/today-ruby.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    web:
+      url: /
+      dockerComposePorts:
+        - 80:80
+
+files:
+  files/docker/dockerfiles/ruby/ruby.Dockerfile: docker/build/web.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart

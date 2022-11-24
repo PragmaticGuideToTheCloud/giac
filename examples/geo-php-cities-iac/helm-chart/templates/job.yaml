@@ -1,0 +1,35 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: &name {{ template "app.fullname" . }}-post-job
+  labels: &labels
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/name: {{ template "app.name" . }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    metadata:
+      name: *name
+      labels: *labels
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: post-install-job
+          image: "{{ .Values.micro.fpm.image.repository }}:{{ .Values.micro.fpm.image.tag }}"
+          command:
+            - "/bin/sh"
+          args:
+            - "-c"
+            - "php /var/www/bin/console doctrine:migrations:migrate -n"
+            - "php /var/www/bin/console cache:warmup --env=prod"
+          envFrom:
+            - configMapRef:
+                name: {{ template "app.fullname" . }}-fpm

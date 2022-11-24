@@ -1,0 +1,20 @@
+version: "1"
+
+params:
+  name: today-php
+  description: TODAY / PHP
+  app_repo: git@github.com:PragmaticGuideToTheCloud/today-php.git
+  provider:
+    gcp:
+      project_id: gcp_project_id_12345
+  services:
+    web:
+      url: /
+      dockerComposePorts:
+        - 80:80
+files:
+  files/docker/dockerfiles/php/php.Dockerfile: docker/build/web.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart

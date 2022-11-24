@@ -1,0 +1,56 @@
+version: "1"
+
+params:
+  name: testlink
+  description: Testlink
+  version: v1.0.0
+  provider:
+    gcp:
+      project_id: gcp_project_id
+  services:
+    app:
+      url: /
+      readinessEnabled: true
+      readinessPath: /login.php
+      readinessPort: 8080
+      targetPort: 8080
+      dockerComposePorts:
+        - 80:8080
+      dockerComposeDependsOn:
+        - database
+      environment:
+        MYSQL_CLIENT_FLAVOR: mysql
+        TESTLINK_DATABASE_HOST: <<< db.database_host >>>
+        TESTLINK_DATABASE_PORT: 3306
+        TESTLINK_DATABASE_NAME: <<< db.database_name >>>
+        TESTLINK_DATABASE_USER: <<< db.database_user >>>
+        TESTLINK_DATABASE_PASSWORD: <<< db.database_password >>>
+    database:
+      image: mysql:5.7
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+        MYSQL_DATABASE: <<< db.database_name >>>
+        MYSQL_USER: <<< db.database_user >>>
+        MYSQL_PASSWORD: <<< db.database_password >>>
+
+  terraform:
+    - vpc
+    - gke
+    - sql
+    - gsa
+
+  db:
+    database_version: MYSQL_5_7
+    database_host: database
+    database_name: testlink
+    database_user: testlink
+    database_password: testlink
+
+files:
+  files/docker/dockerfiles/testlink/testlink.Dockerfile: docker/build/app.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+  files/helm/values.yaml: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart
+

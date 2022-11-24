@@ -1,0 +1,16 @@
+{{- range $micro, $config := .Values.micro }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "app.fullname" $ }}-{{ $micro }}
+  labels:
+    app: {{ template "app.name" $ }}-{{ $micro }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+data:
+{{- if $config.environment }}
+{{ toYaml $config.environment | indent 2 }}
+{{- end }}
+{{- end }}

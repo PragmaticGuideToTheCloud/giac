@@ -1,0 +1,17 @@
+micro:
+
+  web:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/today-python-web
+      tag: v1.0.0
+    service:
+      type: NodePort
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: today-python-web
+    - path: /*
+      service: today-python-web
+

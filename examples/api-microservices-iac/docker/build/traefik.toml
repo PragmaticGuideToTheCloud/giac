@@ -1,0 +1,11 @@
+logLevel = "INFO"
+
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":3000"
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+watch = true

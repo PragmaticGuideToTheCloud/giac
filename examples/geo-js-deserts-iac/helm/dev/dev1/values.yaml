@@ -1,0 +1,36 @@
+micro:
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-js-deserts-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32767
+
+  backend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-js-deserts-backend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+    readinessEnabled: true
+    readiness:
+      path: /api/alive
+    environment:
+      DB_URI: "postgres://apiuser:SecretPassword123!@database:5432/apidb"
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: geo-js-deserts-frontend
+    - path: /*
+      service: geo-js-deserts-frontend
+
+    - path: /api/
+      service: geo-js-deserts-backend
+    - path: /api/*
+      service: geo-js-deserts-backend
+

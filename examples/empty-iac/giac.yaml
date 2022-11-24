@@ -1,0 +1,13 @@
+params:
+  provider:
+    gcp:
+      envs: []
+      vpc:
+        boilerplate: null
+      gke:
+        boilerplate: null
+      autoZone: false
+  container_registry: null
+  terraform: []
+files: {}
+dirs: {}

@@ -1,0 +1,39 @@
+micro:
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-java-mountains-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32767
+
+  backend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/geo-java-mountains-backend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+    readinessEnabled: true
+    readiness:
+      path: /api/alive
+    environment:
+      DB_HOST: "database"
+      DB_NAME: "apidb"
+      DB_USER: "apiuser"
+      DB_PASSWORD: "SecretPassword123!"
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: geo-java-mountains-frontend
+    - path: /*
+      service: geo-java-mountains-frontend
+
+    - path: /api/
+      service: geo-java-mountains-backend
+    - path: /api/*
+      service: geo-java-mountains-backend
+

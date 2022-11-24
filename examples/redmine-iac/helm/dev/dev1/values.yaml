@@ -1,0 +1,28 @@
+micro:
+
+  app:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/redmine-app
+      tag: 4.2.0
+    service:
+      type: NodePort
+      targetPort: 3000
+    readinessEnabled: true
+    readiness:
+      path: /
+      port: 3000
+    environment:
+      REDMINE_DB_MYSQL: "database"
+      REDMINE_DB_DATABASE: "redmine"
+      REDMINE_DB_USERNAME: "redmine"
+      REDMINE_DB_PASSWORD: "redmine"
+      REDMINE_SECRET_KEY_BASE: "supersecretkey"
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: redmine-app
+    - path: /*
+      service: redmine-app
+

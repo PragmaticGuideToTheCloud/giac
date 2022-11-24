@@ -1,0 +1,64 @@
+version: "1"
+
+params:
+  name: magento
+  description: Magento
+  version: v1.0.0
+  provider:
+    gcp:
+      project_id: gcp_project_id
+  services:
+    app:
+      url: /
+      readinessEnabled: true
+      readinessPath: /login
+      readinessPort: 8080
+      targetPort: 8080
+      dockerComposePorts:
+        - 80:8080
+        - 443:8443
+      dockerComposeDependsOn:
+        - mariadb
+        - elasticsearch
+      environment:
+        MAGENTO_HOST: localhost
+        MAGENTO_DATABASE_HOST: mariadb
+        MAGENTO_DATABASE_NAME: bitnami_magento
+        MAGENTO_DATABASE_USER: bn_magento
+        MAGENTO_DATABASE_PASSWORD: magentoOOO
+        ELASTICSEARCH_HOST: elasticsearch
+        ELASTICSEARCH_PORT_NUMBER: 9200
+
+    mariadb:
+      image: docker.io/bitnami/mariadb:10.3
+      environment:
+        MARIADB_USER: bn_magento
+        MARIADB_PASSWORD: magentoOOO
+        MARIADB_DATABASE: bitnami_magento
+        MARIADB_ROOT_PASSWORD: zaq12wsx
+
+    elasticsearch:
+      image: docker.io/bitnami/elasticsearch:6
+
+
+  terraform:
+    - vpc
+    - gke
+    - sql
+    - gsa
+
+  db:
+    database_version: MYSQL_5_7
+    database_host: database
+    database_name: bitnami_magento
+    database_user: bn_magento
+    database_password: zaq12wsx
+
+files:
+  files/docker/dockerfiles/magento/magento.Dockerfile: docker/build/app.Dockerfile
+  files/docker/test/docker-compose.yml: docker/test/docker-compose.yml
+  files/helm/values.yaml: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
+
+dirs:
+  helm-charts/helm-chart-basic: helm-chart
+

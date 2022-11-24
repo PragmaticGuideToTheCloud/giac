@@ -1,0 +1,19 @@
+version: "3"
+services:
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "memorize_it_net"
+      MYSQL_USER: "memory_admin"
+      MYSQL_PASSWORD: "memoryPWD345"
+
+  php:
+    image: "${CONTAINER_REGISTRY}/${GCP_PROJECT_ID}/${PROJECT_NAME}-php:${PROJECT_VERSION}"
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - database

@@ -1,0 +1,93 @@
+micro:
+
+  fpm:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-fpm
+      tag: v1.0.0
+    service:
+      type: ClusterIP
+      nodePort: 32767
+      port: 9000
+      targetPort: 9000
+
+  frontend:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-frontend
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32766
+
+  backend-java:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-backend-java
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32765
+
+  backend-ruby:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-backend-ruby
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32764
+
+  backend-symfony:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-backend-symfony
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32763
+
+  backend-node:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-backend-node
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32762
+
+  backend-django:
+    image:
+      repository: eu.gcr.io/gcp_project_id_12345/api-microservices-backend-django
+      tag: v1.0.0
+    service:
+      type: NodePort
+      nodePort: 32761
+
+ingress:
+  enabled: true
+  paths:
+    - path: /
+      service: api-microservices-frontend
+    - path: /*
+      service: api-microservices-frontend
+
+    - path: /api/poem/
+      service: api-microservices-backend-java
+    - path: /api/poem/*
+      service: api-microservices-backend-java
+
+    - path: /api/proverb/
+      service: api-microservices-backend-ruby
+    - path: /api/proverb/*
+      service: api-microservices-backend-ruby
+
+    - path: /api/quotation/
+      service: api-microservices-backend-symfony
+    - path: /api/quotation/*
+      service: api-microservices-backend-symfony
+
+    - path: /api/song/
+      service: api-microservices-backend-node
+    - path: /api/song/*
+      service: api-microservices-backend-node
+
+    - path: /api/writer/
+      service: api-microservices-backend-django
+    - path: /api/writer/*
+      service: api-microservices-backend-django
+
