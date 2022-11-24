@@ -1,23 +1,11 @@
-# GIAC / generate Infrascructure As Code
+# GIAC / generate Infrastructure As Code
 
-## How to run?
-
-```
-npm i
-./bin/giac-version.js
-```
-
-## How to regenerate examples?
-
-```
-./cleanup.sh
-./bin/examples.js
-```
-
-## How to install globally?
+## How to install and run globally?
 
 ```
 npm i -g git+ssh://git@github.com:PragmaticGuideToTheCloud/giac.git
+
+/opt/homebrew/lib/node_modules/giac/bin/giac-version.js
 ```
 
 ## How to use?
@@ -57,7 +45,25 @@ dirs:
 Then run the command:
 
 ```
-giac-create.js
+/opt/homebrew/lib/node_modules/giac/bin/giac-create.js
+```
+
+For more information about the syntax of `iac.yaml` file go to `examples/` folder.
+
+## Development
+
+### Run
+
+```
+npm i
+./bin/giac-version.js
+```
+
+### Regenerate examples
+
+```
+./cleanup.sh
+./bin/examples.js
 ```
 
 ## Applications
