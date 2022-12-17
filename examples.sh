@@ -9,6 +9,7 @@ DIRS_AND_FILES_TO_CLEAN=(
     docker
     helm
     helm-chart
+    project
     ssh-keys
     terraform
     tests
@@ -43,4 +44,5 @@ EXAMPLES=(
     jenkins
     magento
     airflow
+    postmortem
 )
