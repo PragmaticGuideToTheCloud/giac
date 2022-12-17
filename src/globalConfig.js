@@ -46,8 +46,8 @@ const giacDefaults = {
   },
   files: {
     'files/auth/Makefile': 'auth/Makefile',
-    'files/helm/deploy.sh': 'helm/__VPC_NAME__/__ENV_NAME__/deploy.sh',
-    'files/helm/values.yaml': 'helm/__VPC_NAME__/__ENV_NAME__/values.yaml',
+    'files/helm/deploy.sh': 'helm/deploy.sh',
+    'files/helm/values.yaml': 'helm/values.yaml',
     'files/README.md': 'README.md',
     'files/giac-doc.md': 'giac-doc.md',
     'terragrunt/terragrunt.hcl': 'terragrunt/terragrunt.hcl',
