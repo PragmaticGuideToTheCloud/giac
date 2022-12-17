@@ -6,6 +6,8 @@
 npm i -g git+ssh://git@github.com:PragmaticGuideToTheCloud/giac.git
 
 /opt/homebrew/lib/node_modules/giac/bin/giac-version.js
+
+/usr/local/lib/node_modules/giac/bin/giac-version.js
 ```
 
 ## How to use?
