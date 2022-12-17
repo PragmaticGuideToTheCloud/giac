@@ -70,7 +70,7 @@ create-bucket:
 	(gsutil mb gs://$(BUCKET_NAME) || gsutil acl get gs://$(BUCKET_NAME)) && gsutil versioning set on gs://$(BUCKET_NAME)
 
 kubeconfig:
-	gcloud container clusters get-credentials $(CLUSTER_NAME) --zone=$(ZONE)
+	gcloud container clusters get-credentials $(CLUSTER_NAME) --zone=$(ZONE) --project=$(GCP_PROJECT_ID)
 
 kubeconfigRegion:
-	gcloud container clusters get-credentials $(CLUSTER_NAME) --region=$(REGION)
+	gcloud container clusters get-credentials $(CLUSTER_NAME) --region=$(REGION) --project=$(GCP_PROJECT_ID)
