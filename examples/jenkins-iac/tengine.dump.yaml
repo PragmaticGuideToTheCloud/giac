@@ -32,8 +32,8 @@ files:
     dest: giac-doc.md
   - src: terraform/terragrunt.hcl
     dest: terraform/terragrunt.hcl
-  - src: terraform/gitignore
-    dest: terraform/gitignore
+  - src: files/gitignore
+    dest: gitignore
   - src: files/helm/deploy-jenkins.sh
     dest: helm/__VPC_NAME__/__ENV_NAME__/deploy.sh
   - src: files/helm/values-jenkins.yaml

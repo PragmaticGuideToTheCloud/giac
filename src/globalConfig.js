@@ -51,7 +51,7 @@ const giacDefaults = {
     'files/README.md': 'README.md',
     'files/giac-doc.md': 'giac-doc.md',
     'terraform/terragrunt.hcl': 'terraform/terragrunt.hcl',
-    'terraform/gitignore': 'terraform/gitignore',
+    'files/gitignore': 'gitignore',
   },
   dirs: {
     ansible: 'ansible',
