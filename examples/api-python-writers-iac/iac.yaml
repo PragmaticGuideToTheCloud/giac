@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   name: api-python-writers
   description: API / Python / Writers

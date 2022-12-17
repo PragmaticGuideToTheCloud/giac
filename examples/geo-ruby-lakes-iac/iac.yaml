@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   name: geo-ruby-lakes
   description: Geography / Ruby / Lakes

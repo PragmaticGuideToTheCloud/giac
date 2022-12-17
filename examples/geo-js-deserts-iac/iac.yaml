@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   name: geo-js-deserts
   description: Geography / JS / Deserts
