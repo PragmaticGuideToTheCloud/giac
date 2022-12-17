@@ -54,9 +54,7 @@ const giacDefaults = {
     'files/gitignore': 'gitignore',
   },
   dirs: {
-    ansible: 'ansible',
     tests: 'tests',
-    vpn: 'vpn',
   },
 };
 

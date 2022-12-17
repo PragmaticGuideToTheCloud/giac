@@ -39,12 +39,8 @@ files:
   - src: files/helm/values-jenkins.yaml
     dest: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
 dirs:
-  - src: ansible
-    dest: ansible
   - src: tests
     dest: tests
-  - src: vpn
-    dest: vpn
   - src: terragrunt/vpc
     dest: terragrunt/vpc
   - src: terragrunt/gke
