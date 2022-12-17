@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "hello-cloud-prod"
-  env_name = "hello-cloud-prod"
+  cluster_name = "hello-cloud-prod"
 }

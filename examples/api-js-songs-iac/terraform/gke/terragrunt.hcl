@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "api-js-songs-prod"
-  env_name = "api-js-songs-prod"
+  cluster_name = "api-js-songs-prod"
 }

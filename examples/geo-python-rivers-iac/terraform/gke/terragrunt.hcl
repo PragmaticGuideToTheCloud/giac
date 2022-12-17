@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "geo-python-rivers-prod"
-  env_name = "geo-python-rivers-prod"
+  cluster_name = "geo-python-rivers-prod"
 }

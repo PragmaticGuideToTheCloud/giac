@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "postmortem-prod"
-  env_name = "postmortem-prod"
+  cluster_name = "postmortem-prod"
 }

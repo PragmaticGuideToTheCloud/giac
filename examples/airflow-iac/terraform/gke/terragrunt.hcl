@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "airflow-prod"
-  env_name = "airflow-prod"
+  cluster_name = "airflow-prod"
 }

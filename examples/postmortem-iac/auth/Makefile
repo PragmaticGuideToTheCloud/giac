@@ -1,7 +1,7 @@
 GCP_PROJECT_ID = gcp_project_id_12345
 REGION         = europe-west1
 ZONE           = europe-west1-b
-CLUSTER_NAME   = dev1
+CLUSTER_NAME   = postmortem-prod
 
 export
 

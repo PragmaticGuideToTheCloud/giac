@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "api-php-quotations-prod"
-  env_name = "api-php-quotations-prod"
+  cluster_name = "api-php-quotations-prod"
 }

@@ -2,7 +2,7 @@ GCP_PROJECT_ID = <<< provider.gcp.project_id >>>
 BUCKET_NAME    = $(shell gcloud config get-value project)-<<< provider.gcp.bucket_suffix | default ("tfstate") >>>
 REGION         = <<< provider.gcp.region | default ("europe-west1") >>>
 ZONE           = <<< provider.gcp.zone | default ("europe-west1-b") >>>
-CLUSTER_NAME   = <<< __ENV_NAME__ >>>
+CLUSTER_NAME   = <<< name >>>-<<< env | default ("prod") >>>
 
 GOOGLE_APIS := \
     compute.googleapis.com \

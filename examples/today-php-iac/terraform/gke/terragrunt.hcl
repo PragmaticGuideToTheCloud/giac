@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "today-php-prod"
-  env_name = "today-php-prod"
+  cluster_name = "today-php-prod"
 }

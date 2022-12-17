@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "testlink-prod"
-  env_name = "testlink-prod"
+  cluster_name = "testlink-prod"
 }
