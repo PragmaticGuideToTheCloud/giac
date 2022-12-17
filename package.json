@@ -1,7 +1,7 @@
 {
   "name": "giac",
   "description": "gIaC - generate Infrastructure as Code",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Vlad Gajda <gajda@gajdaw.pl>",
   "repository": {
     "type": "git",
