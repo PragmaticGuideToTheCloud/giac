@@ -49,6 +49,7 @@ const giacDefaults = {
     'files/helm/deploy.sh': 'helm/__VPC_NAME__/__ENV_NAME__/deploy.sh',
     'files/helm/values.yaml': 'helm/__VPC_NAME__/__ENV_NAME__/values.yaml',
     'files/README.md': 'README.md',
+    'files/giac-doc.md': 'giac-doc.md',
     'terraform/terragrunt.hcl': 'terraform/terragrunt.hcl',
     'terraform/gitignore': 'terraform/gitignore',
   },
