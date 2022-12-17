@@ -32,8 +32,8 @@ files:
     dest: giac-doc.md
   - src: terraform/terragrunt.hcl
     dest: terraform/terragrunt.hcl
-  - src: terraform/gitignore
-    dest: terraform/gitignore
+  - src: files/gitignore
+    dest: gitignore
   - src: files/docker/dockerfiles/python/python.Dockerfile
     dest: docker/build/web.Dockerfile
   - src: files/docker/test/docker-compose.yml

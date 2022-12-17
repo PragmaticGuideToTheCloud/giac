@@ -32,8 +32,8 @@ files:
     dest: giac-doc.md
   - src: terraform/terragrunt.hcl
     dest: terraform/terragrunt.hcl
-  - src: terraform/gitignore
-    dest: terraform/gitignore
+  - src: files/gitignore
+    dest: gitignore
   - src: files/docker/dockerfiles/node/node-backend-postgres.Dockerfile
     dest: docker/build/backend.Dockerfile
   - src: files/docker/dockerfiles/wait-for-it.sh
