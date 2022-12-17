@@ -117,3 +117,9 @@ npm i
 
 - https://github.com/helm/charts/tree/master/stable
 - https://github.com/helm/charts
+
+## Example config
+
+```
+files/auth/MakefileSecondGen: auth/Makefile
+```
