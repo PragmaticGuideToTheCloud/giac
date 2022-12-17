@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   name: api-java-poems
   description: API / Java / Poems

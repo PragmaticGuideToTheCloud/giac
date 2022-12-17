@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   name: today-java
   description: TODAY / Java

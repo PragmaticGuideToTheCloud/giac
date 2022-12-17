@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   name: api-ruby-proverbs
   description: API / Ruby / Proverbs

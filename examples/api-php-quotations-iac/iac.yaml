@@ -1,5 +1,3 @@
-version: "1"
-
 params:
   dockerComposeServiceNaming: long
   name: api-php-quotations
