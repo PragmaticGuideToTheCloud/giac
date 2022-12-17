@@ -6,6 +6,9 @@ params:
   app_repo: git@github.com:PragmaticGuideToTheCloud/hello-cloud.git
   provider:
     gcp:
+      org_id: 123456789
+      billing_account: a1b2c3d4e5
+      parent_folder_id: folders/1111111
       project_id: gcp_project_id_12345
   services:
     web:
@@ -18,3 +21,4 @@ files:
 
 dirs:
   helm-charts/helm-chart-basic: helm-chart
+  project: project
