@@ -1,0 +1,20 @@
+- hosts: [self]
+
+  any_errors_fatal: true
+
+  gather_facts: false
+
+  pre_tasks:
+
+    - name: ensure cache directory
+      file:
+        path: "{{ playbook_dir }}/.cache/cloud-boilerplate/"
+        state: directory
+
+    - name: ensure git workspace
+      git:
+        dest: "{{ playbook_dir }}/.cache/cloud-boilerplate/"
+        repo: "{{ git_url }}"
+        version: "{{ git_branch }}"
+        accept_hostkey: true
+        ssh_opts: "-o ForwardAgent=yes"
