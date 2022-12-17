@@ -46,11 +46,9 @@ logout:
 	gcloud config unset account
 	gcloud auth revoke --all || true
 
-# necessary to run make kubeconfig
 login:
 	gcloud auth login
 
-# necessary to access bucket
 application-default:
 	gcloud auth application-default login
 
