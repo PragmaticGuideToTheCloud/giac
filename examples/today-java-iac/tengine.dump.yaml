@@ -28,6 +28,8 @@ files:
     dest: helm/__VPC_NAME__/__ENV_NAME__/values.yaml
   - src: files/README.md
     dest: README.md
+  - src: files/giac-doc.md
+    dest: giac-doc.md
   - src: terraform/terragrunt.hcl
     dest: terraform/terragrunt.hcl
   - src: terraform/gitignore
