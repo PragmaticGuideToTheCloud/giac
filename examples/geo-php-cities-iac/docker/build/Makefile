@@ -85,4 +85,5 @@ src:
 edit_app_version: src
 	sed -i ""  -E s/PROJECT_VERSION\.\*/PROJECT_VERSION=$(PROJECT_VERSION)/g ./../test/.env \
 	&& sed -i ""  -E s/appVersion\.\*/appVersion:\ $(PROJECT_VERSION)/g ./../../helm-chart/Chart.yaml \
-	&& sed -i ""  -E s/tag:\ \.\*/tag:\ $(PROJECT_VERSION)/g ./../../helm/dev/dev1/values.yaml
+	&& sed -i ""  -E s/tag:\ \.\*/tag:\ $(PROJECT_VERSION)/g ./../../helm/values.yaml \
+	&& sed -i ""  -E "s/  version:\ \.\*/  version:\ $(PROJECT_VERSION)/g" ./../../iac.yaml
