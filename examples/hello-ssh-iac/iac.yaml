@@ -23,3 +23,5 @@ files:
 dirs:
   helm-charts/helm-chart-basic: helm-chart
   ssh-keys: ssh-keys
+  ansible: ansible
+  vpn: vpn

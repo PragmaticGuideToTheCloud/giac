@@ -57,12 +57,8 @@ files:
   - src: files/docker/build/Makefile
     dest: docker/build/Makefile
 dirs:
-  - src: ansible
-    dest: ansible
   - src: tests
     dest: tests
-  - src: vpn
-    dest: vpn
   - src: helm-charts/helm-chart-with-job
     dest: helm-chart
   - src: terragrunt/vpc
