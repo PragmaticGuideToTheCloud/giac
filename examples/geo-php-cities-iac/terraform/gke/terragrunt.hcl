@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "geo-php-cities-prod"
-  env_name = "geo-php-cities-prod"
+  cluster_name = "geo-php-cities-prod"
 }

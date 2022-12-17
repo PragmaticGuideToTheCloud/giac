@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "redmine-prod"
-  env_name = "redmine-prod"
+  cluster_name = "redmine-prod"
 }

@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "api-java-poems-prod"
-  env_name = "api-java-poems-prod"
+  cluster_name = "api-java-poems-prod"
 }

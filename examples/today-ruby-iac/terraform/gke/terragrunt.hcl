@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "today-ruby-prod"
-  env_name = "today-ruby-prod"
+  cluster_name = "today-ruby-prod"
 }

@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "jenkins-prod"
-  env_name = "jenkins-prod"
+  cluster_name = "jenkins-prod"
 }

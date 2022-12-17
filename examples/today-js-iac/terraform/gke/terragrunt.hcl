@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "today-js-prod"
-  env_name = "today-js-prod"
+  cluster_name = "today-js-prod"
 }

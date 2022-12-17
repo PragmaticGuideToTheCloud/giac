@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "api-ruby-proverbs-prod"
-  env_name = "api-ruby-proverbs-prod"
+  cluster_name = "api-ruby-proverbs-prod"
 }

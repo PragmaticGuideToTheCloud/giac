@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "api-microservices-prod"
-  env_name = "api-microservices-prod"
+  cluster_name = "api-microservices-prod"
 }

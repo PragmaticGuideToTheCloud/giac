@@ -8,7 +8,7 @@ terraform {
 
 inputs = {
   vpc_name = "<<< name >>>-<<< env | default ("prod") >>>"
-  env_name = "<<< name >>>-<<< env | default ("prod") >>>"
+  cluster_name = "<<< name >>>-<<< env | default ("prod") >>>"
   <%- if provider.gcp.region %>
   region = "<<< provider.gcp.region >>>"
   <%- endif %>

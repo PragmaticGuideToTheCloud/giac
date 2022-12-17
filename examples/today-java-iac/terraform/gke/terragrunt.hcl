@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "today-java-prod"
-  env_name = "today-java-prod"
+  cluster_name = "today-java-prod"
 }

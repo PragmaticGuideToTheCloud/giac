@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "api-python-writers-prod"
-  env_name = "api-python-writers-prod"
+  cluster_name = "api-python-writers-prod"
 }

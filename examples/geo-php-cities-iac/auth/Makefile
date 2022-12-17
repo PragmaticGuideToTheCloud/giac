@@ -2,7 +2,7 @@ GCP_PROJECT_ID = gcp_project_id_12345
 BUCKET_NAME    = $(shell gcloud config get-value project)-tfstate
 REGION         = europe-west1
 ZONE           = europe-west1-b
-CLUSTER_NAME   = dev1
+CLUSTER_NAME   = geo-php-cities-prod
 
 GOOGLE_APIS := \
     compute.googleapis.com \

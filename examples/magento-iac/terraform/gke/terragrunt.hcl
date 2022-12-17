@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "magento-prod"
-  env_name = "magento-prod"
+  cluster_name = "magento-prod"
 }

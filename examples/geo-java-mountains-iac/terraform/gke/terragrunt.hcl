@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "geo-java-mountains-prod"
-  env_name = "geo-java-mountains-prod"
+  cluster_name = "geo-java-mountains-prod"
 }

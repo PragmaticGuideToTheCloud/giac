@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "memorize-it-prod"
-  env_name = "memorize-it-prod"
+  cluster_name = "memorize-it-prod"
 }

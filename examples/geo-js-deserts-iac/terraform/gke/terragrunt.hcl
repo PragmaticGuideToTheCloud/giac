@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "geo-js-deserts-prod"
-  env_name = "geo-js-deserts-prod"
+  cluster_name = "geo-js-deserts-prod"
 }

@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
   vpc_name = "geo-ruby-lakes-prod"
-  env_name = "geo-ruby-lakes-prod"
+  cluster_name = "geo-ruby-lakes-prod"
 }
