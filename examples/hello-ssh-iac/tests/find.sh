@@ -15,9 +15,9 @@
 SELF=$(realpath "$0" | xargs dirname) && cd $SELF/
 cd ..
 
-find terraform -name "terragrunt.hcl" | \
+find terragrunt -name "terragrunt.hcl" | \
   grep -v "/.terragrunt-cache/" | \
-  sed -E s/^terraform\\/terragrunt.hcl//g |
+  sed -E s/^terragrunt\\/terragrunt.hcl//g |
   sed -E s/\\/terragrunt.hcl//g |
   sed '/^$/d' |
   sort |
