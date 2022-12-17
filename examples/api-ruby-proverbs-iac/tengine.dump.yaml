@@ -30,8 +30,8 @@ files:
     dest: README.md
   - src: files/giac-doc.md
     dest: giac-doc.md
-  - src: terraform/terragrunt.hcl
-    dest: terraform/terragrunt.hcl
+  - src: terragrunt/terragrunt.hcl
+    dest: terragrunt/terragrunt.hcl
   - src: files/gitignore
     dest: gitignore
   - src: files/docker/dockerfiles/ruby/sinatra.Dockerfile
@@ -61,12 +61,12 @@ dirs:
     dest: vpn
   - src: helm-charts/helm-chart-basic
     dest: helm-chart
-  - src: terraform/vpc
-    dest: terraform/vpc
-  - src: terraform/gke
-    dest: terraform/gke
-  - src: terraform/gsa
-    dest: terraform/gsa
+  - src: terragrunt/vpc
+    dest: terragrunt/vpc
+  - src: terragrunt/gke
+    dest: terragrunt/gke
+  - src: terragrunt/gsa
+    dest: terragrunt/gsa
 params:
   name: api-ruby-proverbs
   description: API / Ruby / Proverbs

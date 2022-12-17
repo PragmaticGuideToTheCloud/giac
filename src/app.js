@@ -144,7 +144,7 @@ function prepareDirs(config, params, defaults) {
   let dirs = { ...defaults.dirs, ...config.dirs };
 
   params.terraform.forEach(item => {
-    dirs['terraform/' + item] = 'terraform/' + item;
+    dirs['terragrunt/' + item] = 'terragrunt/' + item;
   });
 
   dirs = [].concat(
