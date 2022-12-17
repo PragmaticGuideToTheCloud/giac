@@ -41,6 +41,8 @@ let examples = [
   'examples/jenkins-iac/',
   'examples/magento-iac/',
   'examples/airflow-iac/',
+
+  'examples/postmortem-iac/',
 ];
 
 examples.forEach(baseDir => {

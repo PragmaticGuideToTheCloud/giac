@@ -1,4 +1,4 @@
-baseDir: examples/hello-cloud-iac/
+baseDir: examples/postmortem-iac/
 cfg:
   templatesDir: /Users/gajdaw/pgttc/giac/src/../templates/
   nunjucks:
@@ -34,10 +34,18 @@ files:
     dest: terraform/terragrunt.hcl
   - src: files/gitignore
     dest: gitignore
-  - src: files/docker/dockerfiles/html.Dockerfile
-    dest: docker/build/web.Dockerfile
-  - src: files/docker/test/docker-compose.yml
+  - src: files/docker/dockerfiles/node/node-backend.Dockerfile
+    dest: docker/build/backend.Dockerfile
+  - src: files/docker/dockerfiles/node/node-frontend.Dockerfile
+    dest: docker/build/frontend.Dockerfile
+  - src: files/docker/dockerfiles/traefik/traefik.Dockerfile
+    dest: docker/build/traefik.Dockerfile
+  - src: files/docker/dockerfiles/traefik/traefik.toml
+    dest: docker/build/traefik.toml
+  - src: files/docker/test/docker-compose-traefik.yml
     dest: docker/test/docker-compose.yml
+  - src: files/auth/MakefileSecondGen
+    dest: auth/Makefile
   - src: files/docker/build/gitignore
     dest: docker/build/gitignore
   - src: files/docker/build/dockerignore
@@ -55,6 +63,8 @@ dirs:
     dest: vpn
   - src: helm-charts/helm-chart-basic
     dest: helm-chart
+  - src: project
+    dest: project
   - src: terraform/vpc
     dest: terraform/vpc
   - src: terraform/gke
@@ -62,11 +72,14 @@ dirs:
   - src: terraform/gsa
     dest: terraform/gsa
 params:
-  name: hello-cloud
-  description: 'Hello, Cloud!'
-  app_repo: 'git@github.com:PragmaticGuideToTheCloud/hello-cloud.git'
+  name: postmortem
+  description: PostMortem App
+  app_repo: 'git@github.com:PostMortemApp/postmortem.git'
   provider:
     gcp:
+      org_id: 111111111111
+      billing_account: 111111-111111-111111
+      parent_folder_id: folders/111111111111
       project_id: gcp_project_id_12345
       envs:
         - dev/dev1
@@ -81,10 +94,16 @@ params:
           git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/gsa
       autoZone: false
   services:
-    web:
+    backend:
+      url: /api/
+      readinessEnabled: true
+      readinessPath: /api/alive
+      srcCodePath: /backend
+      withTraefik: true
+    frontend:
       url: /
-      dockerComposePorts:
-        - '80:80'
+      srcCodePath: /frontend
+      withTraefik: true
   container_registry: eu.gcr.io
   terraform:
     - vpc
@@ -92,20 +111,49 @@ params:
     - gsa
   ansibleBoilerplateUrl: 'git@github.com:PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git'
   containers:
-    - name: web
+    - name: traefik
+      srcCodePath: ''
+    - name: backend
+      srcCodePath: /backend
+    - name: frontend
+      srcCodePath: /frontend
   dockerServices:
-    - name: web
+    - name: traefik
+      nodePort: 1
+      url: ''
+      type: NodePort
+      excludeFromHelm: true
+      dockerComposeServiceName: traefik
+    - name: frontend
       nodePort: 32767
       url: /
       type: NodePort
-      dockerComposePorts:
-        - '80:80'
-      dockerComposeServiceName: web
+      srcCodePath: /frontend
+      withTraefik: true
+      dockerComposeServiceName: frontend
+    - name: backend
+      nodePort: 32766
+      url: /api/
+      type: NodePort
+      readinessEnabled: true
+      readinessPath: /api/alive
+      srcCodePath: /backend
+      withTraefik: true
+      dockerComposeServiceName: backend
   helmServices:
-    - name: web
+    - name: frontend
       nodePort: 32767
       url: /
       type: NodePort
-      dockerComposePorts:
-        - '80:80'
-      dockerComposeServiceName: web
+      srcCodePath: /frontend
+      withTraefik: true
+      dockerComposeServiceName: frontend
+    - name: backend
+      nodePort: 32766
+      url: /api/
+      type: NodePort
+      readinessEnabled: true
+      readinessPath: /api/alive
+      srcCodePath: /backend
+      withTraefik: true
+      dockerComposeServiceName: backend
