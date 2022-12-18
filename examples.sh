@@ -11,7 +11,7 @@ DIRS_AND_FILES_TO_CLEAN=(
     helm-chart
     project
     ssh-keys
-    terraform
+    terragrunt
     tests
     vpn
     README.md
