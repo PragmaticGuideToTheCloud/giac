@@ -20,6 +20,12 @@ params:
       srcCodePath: /frontend
       withTraefik: true
 
+  terraform:
+    - vpc
+    - gke
+    - gsa
+    - global-address
+
 files:
   files/docker/dockerfiles/node/node-backend.Dockerfile: docker/build/backend.Dockerfile
   files/docker/dockerfiles/node/node-frontend.Dockerfile: docker/build/frontend.Dockerfile

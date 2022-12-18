@@ -38,6 +38,10 @@ const giacDefaults = {
           boilerplate:
             'git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/gsa',
         },
+        global_address: {
+          boilerplate:
+            'git::ssh://git@github.com/PragmaticGuideToTheCloud/gcp-cloud-boilerplate.git//terraform/global-address',
+        },
         autoZone: false,
       },
     },
