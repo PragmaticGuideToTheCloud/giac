@@ -4,6 +4,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ template "app.fullname" $ }}-{{ $micro }}
+  namespace: {{ template "app.fullname" $ }}
   labels:
     app: {{ template "app.name" $ }}-{{ $micro }}
     chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
