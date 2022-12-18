@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "app.fullname" $ }}-{{ $micro }}
+  namespace: {{ template "app.fullname" $ }}
   labels:
     app: &app {{ template "app.name" $ }}-{{ $micro }}
     release: &release {{ $.Release.Name }}
