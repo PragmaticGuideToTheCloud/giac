@@ -32,3 +32,6 @@ ingress:
     - path: /api/*
       service: postmortem-backend
 
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: postmortem-global-address
+

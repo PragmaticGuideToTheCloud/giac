@@ -26,6 +26,8 @@ params:
     - gsa
     - global-address
 
+  with_annotations: true
+
 files:
   files/docker/dockerfiles/node/node-backend.Dockerfile: docker/build/backend.Dockerfile
   files/docker/dockerfiles/node/node-frontend.Dockerfile: docker/build/frontend.Dockerfile
