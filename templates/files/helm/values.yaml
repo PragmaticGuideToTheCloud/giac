@@ -46,6 +46,10 @@ ingress:
       service: <<< name >>>-<<< service.name >>>
 <% endif -%>
 <% endfor %>
+<%- if with_annotations %>
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: <<< name >>>-global-address
+<% endif -%>
 <%- if externalName.enabled %>
 externalName:
   enabled: true
